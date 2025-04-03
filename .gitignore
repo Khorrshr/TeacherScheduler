@@ -1,0 +1,18 @@
+# .NET build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+
+# VSCode settings
+.vscode/
+
+# Sensitive files
+appsettings.json  # Contains connection string with password
+Timetable.txt     # Generated output file
+
+# Dependency directories
+packages/
