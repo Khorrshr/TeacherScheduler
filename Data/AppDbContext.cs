@@ -1,8 +1,8 @@
 // Data/AppDbContext.cs
 using Microsoft.EntityFrameworkCore;
-using TeacherScheduler.Models;
+using TempusNexum.Models;
 
-namespace TeacherScheduler.Data
+namespace TempusNexum.Data
 {
     public class AppDbContext : DbContext
     {

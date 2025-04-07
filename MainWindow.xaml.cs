@@ -1,11 +1,13 @@
 ﻿// MainWindow.xaml.cs
 using Microsoft.EntityFrameworkCore;
-using TeacherScheduler.Data;
-using TeacherScheduler.Models;
+using TempusNexum.Data;
+using TempusNexum.Models;
+using TempusNexum.Services;
 using System.Linq;
 using System.Windows;
+using System.IO;
 
-namespace TeacherScheduler
+namespace TempusNexum
 {
     public partial class MainWindow : Window
     {
@@ -26,13 +28,17 @@ namespace TeacherScheduler
             var roles = _currentUser.Roles.Split(',').ToList();
             if (!roles.Contains("Manager"))
             {
-                // Hide Manager tab
+                // Hide Manager tab (index 1)
                 TabControl.Items.RemoveAt(1);
             }
             if (!roles.Contains("Admin"))
             {
-                // Hide Admin tab
-                TabControl.Items.RemoveAt(2);
+                // Hide Admin tab (index 2, or index 1 if Manager tab was removed)
+                int adminTabIndex = roles.Contains("Manager") ? 2 : 1;
+                if (TabControl.Items.Count > adminTabIndex)
+                {
+                    TabControl.Items.RemoveAt(adminTabIndex);
+                }
             }
         }
 
@@ -69,50 +75,49 @@ namespace TeacherScheduler
 
         private void GenerateTimetableButton_Click(object sender, RoutedEventArgs e)
         {
-            // Placeholder for scheduling logic
-            MessageBox.Show("Timetable generation coming soon...");
+            var scheduler = new Scheduler(_context, _currentUser);
+            var schedules = _context.Schedules.ToList();
+            var courses = _context.Courses.ToList();
+            var facilities = _context.Facilities.ToList();
+
+            var timetable = scheduler.GenerateTimetable(schedules, courses, facilities);
+            var conflicts = scheduler.GetConflicts(timetable);
+
+            if (conflicts.Any())
+            {
+                System.Windows.MessageBox.Show("Conflicts found:\n" + string.Join("\n", conflicts));
+            }
+            else
+            {
+                _context.Timetables.AddRange(timetable);
+                _context.SaveChanges();
+                System.Windows.MessageBox.Show("Timetable generated successfully!");
+            }
         }
-    }
 
-    private void GenerateTimetableButton_Click(object sender, RoutedEventArgs e)
-{
-    var scheduler = new Scheduler();
-    var schedules = _context.Schedules.ToList();
-    var courses = _context.Courses.ToList();
-    var facilities = _context.Facilities.ToList();
-
-    var timetable = scheduler.GenerateTimetable(schedules, courses, facilities);
-    var conflicts = scheduler.GetConflicts(timetable);
-
-    if (conflicts.Any())
-    {
-        MessageBox.Show("Conflicts found:\n" + string.Join("\n", conflicts));
-    }
-    else
-    {
-        _context.Timetables.AddRange(timetable);
-        _context.SaveChanges();
-        MessageBox.Show("Timetable generated successfully!");
-    }
-    }
-
-    private void PrintTimetableButton_Click(object sender, RoutedEventArgs e)
-{
-    var timetables = _context.Timetables
-        .Include(t => t.Teacher)
-        .Include(t => t.Course)
-        .Include(t => t.Facility)
-        .ToList();
-
-    using (var writer = new StreamWriter("Timetable.txt"))
-    {
-        foreach (var entry in timetables)
+        private void PrintTimetableButton_Click(object sender, RoutedEventArgs e)
         {
-            writer.WriteLine($"{entry.TimeSlot}: {entry.Teacher.Name} teaches {entry.Course.Name} in {entry.Facility.Name}");
+            var timetables = _context.Timetables
+                .Include(t => t.Teacher)
+                .Include(t => t.Course)
+                .Include(t => t.Facility)
+                .ToList();
+
+            using (var writer = new StreamWriter("Timetable.txt"))
+            {
+                foreach (var entry in timetables)
+                {
+                    writer.WriteLine($"{entry.TimeSlot}: {entry.Teacher.Name} teaches {entry.Course.Name} in {entry.Facility.Name}");
+                }
+            }
+
+            System.Windows.MessageBox.Show("Timetable exported to Timetable.txt");
+        }
+
+        private void ManageUsersButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Placeholder for managing users
+            System.Windows.MessageBox.Show("User management functionality coming soon...");
         }
     }
-
-    MessageBox.Show("Timetable exported to Timetable.txt");
-}
-
 }

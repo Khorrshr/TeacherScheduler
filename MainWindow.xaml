@@ -1,10 +1,10 @@
 ﻿<!-- MainWindow.xaml -->
-<Window x:Class="TeacherScheduler.MainWindow"
+<Window x:Class="TempusNexum.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Teacher Scheduler" Height="450" Width="800">
     <Grid>
-        <TabControl>
+        <TabControl x:Name="TabControl">
             <TabItem Header="Teacher Dashboard">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -28,29 +28,17 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Manager Dashboard">
-            <StackPanel>
-                <Button Content="Generate Timetable" Click="GenerateTimetableButton_Click" Margin="5"/>
-                <Button Content="Print Timetable" Click="PrintTimetableButton_Click" Margin="5"/>
-            </StackPanel>
-        </TabItem>
+                <StackPanel>
+                    <Button Content="Generate Timetable" Click="GenerateTimetableButton_Click" Margin="5"/>
+                    <Button Content="Print Timetable" Click="PrintTimetableButton_Click" Margin="5"/>
+                </StackPanel>
+            </TabItem>
             <TabItem Header="Admin Dashboard">
-                <TextBlock Text="Admin settings coming soon..."/>
+                <StackPanel>
+                    <TextBlock Text="Admin settings coming soon..." Margin="5"/>
+                    <Button Content="Manage Users" Click="ManageUsersButton_Click" Margin="5"/>
+                </StackPanel>
             </TabItem>
         </TabControl>
-
-
-        <TabItem Header="Manager Dashboard">
-            <StackPanel>
-                <Button Content="Generate Timetable" Click="GenerateTimetableButton_Click" Margin="5"/>
-                <Button Content="Print Timetable" Click="PrintTimetableButton_Click" Margin="5"/>
-            </StackPanel>
-        </TabItem>
-        <TabItem Header="Admin Dashboard">
-            <StackPanel>
-                <TextBlock Text="Admin settings coming soon..." Margin="5"/>
-                <Button Content="Manage Users" Click="ManageUsersButton_Click" Margin="5"/>
-            </StackPanel>
-        </TabItem>
-        
     </Grid>
 </Window>

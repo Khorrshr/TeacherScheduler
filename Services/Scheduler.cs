@@ -1,13 +1,23 @@
 // Services/Scheduler.cs
-using TeacherScheduler.Models;
+using TempusNexum.Data;
+using TempusNexum.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TeacherScheduler.Services
+namespace TempusNexum.Services
 {
     public class Scheduler
     {
+        private readonly AppDbContext _context;
+        private readonly User _currentUser;
+
+        public Scheduler(AppDbContext context, User currentUser)
+        {
+            _context = context;
+            _currentUser = currentUser;
+        }
+
         public List<Timetable> GenerateTimetable(List<Schedule> schedules, List<Course> courses, List<Facility> facilities)
         {
             var timetables = new List<Timetable>();

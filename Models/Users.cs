@@ -1,5 +1,9 @@
 // Models/User.cs
-namespace TeacherScheduler.Models
+
+using System;
+using System.Collections.Generic;
+
+namespace TempusNexum.Models
 {
     public class User
     {
@@ -11,7 +15,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Teacher.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Teacher
     {
@@ -25,7 +29,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Group.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Group
     {
@@ -36,7 +40,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/TeacherGroup.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class TeacherGroup
     {
@@ -48,7 +52,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Schedule.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Schedule
     {
@@ -61,7 +65,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Course.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Course
     {
@@ -76,7 +80,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/StudyProgram.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class StudyProgram
     {
@@ -88,7 +92,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Facility.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Facility
     {
@@ -100,7 +104,7 @@ namespace TeacherScheduler.Models
 }
 
 // Models/Timetable.cs
-namespace TeacherScheduler.Models
+namespace TempusNexum.Models
 {
     public class Timetable
     {
